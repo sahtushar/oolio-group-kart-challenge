@@ -1,0 +1,37 @@
+{
+  "name": "food-ordering",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "format": "prettier --write ./src",
+    "format-watch": "(git diff --name-only --diff-filter=ACM && git ls-files --others --exclude-standard) | grep -E '\\.(ts|tsx|js)$' | xargs prettier --write"
+  },
+  "dependencies": {
+    "@types/styled-components": "^5.1.34",
+    "axios": "^1.10.0",
+    "lucide-react": "^0.525.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "prettier": "^3.5.3",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
+    "vite": "^7.0.0"
+  }
+}
