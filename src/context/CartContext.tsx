@@ -50,19 +50,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
-  const orderConfirmed = () => {
+  const orderConfirmed = async () => {
     //store order by dateandtime
-    const randomUUID = crypto.randomUUID();
 
-    const order: Order = {
-      date: new Date().toISOString(),
-      items: cart,
-      orderConfirmed: true,
-      orderId: randomUUID,
-    };
-    placeOrder(order);
+    const order = await placeOrder(cart);
     setOrders([...orders, order]);
-    // setCart([]);
   };
 
   const clearCart = () => {
