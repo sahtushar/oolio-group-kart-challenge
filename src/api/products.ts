@@ -1,13 +1,9 @@
 // import axios from "axios";
 import type { Product } from "@/types";
-import { productsData } from "./mockData";
-
-// const API_BASE = "https://orderfoodonline.deno.dev/api";
+import axios from "axios";
+import { API_BASE } from "./mockData";
 
 export const fetchProducts = async (): Promise<Product[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(productsData as unknown as Product[]);
-    }, 1000);
-  });
+  const response = await axios.get(`${API_BASE}/product`);
+  return response.data;
 };

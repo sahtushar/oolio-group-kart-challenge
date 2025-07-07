@@ -1,14 +1,30 @@
+// import axios from "axios";
+import type { Order } from "@/types";
 import axios from "axios";
-import type { CartItem } from "@/types";
+import { API_BASE } from "./mockData";
 
-const API_BASE = "https://orderfoodonline.deno.dev/api";
+export const placeOrder = async (order: Order) => {
+  const headers = {
+    api_key: "apitest",
+  };
 
-export const placeOrder = async (items: CartItem[]) => {
-  const response = await axios.post(`${API_BASE}/order`, {
-    items: items.map((item) => ({
-      product_id: item.product.id,
-      quantity: item.quantity,
-    })),
-  });
+  const response = await axios.post(
+    `${API_BASE}/order`,
+    {
+      items: order.items.map((item) => ({
+        product_id: item.product.id,
+        quantity: item.quantity,
+      })),
+    },
+    { headers },
+  );
+
+  const orders = localStorage.getItem("orders") || "[]";
+
+  localStorage.setItem(
+    "orders",
+    JSON.stringify([...JSON.parse(orders), order]),
+  );
+
   return response.data;
 };

@@ -1,3 +1,4 @@
+import { placeOrder } from "../api/order";
 import type { CartItem, Order, Product } from "../types";
 import React, { createContext, useContext, useState } from "react";
 
@@ -59,6 +60,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       orderConfirmed: true,
       orderId: randomUUID,
     };
+    placeOrder(order);
     setOrders([...orders, order]);
     // setCart([]);
   };
@@ -89,6 +91,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) throw new Error("useCart must be used within a CartProvider");

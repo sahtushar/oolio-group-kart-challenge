@@ -41,6 +41,10 @@ const UnitTotal = styled.span`
 const RemoveButton = styled.button`
   color: #a0aec0;
   transition: color 0.2s ease;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 2px;
+  padding-bottom: 0px;
 
   &:hover {
     color: #f56565;

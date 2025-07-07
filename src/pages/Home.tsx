@@ -7,14 +7,18 @@ import Cart from "../components/Cart";
 import styled from "styled-components";
 import OrderConfirmed from "../components/OrderConfirmed";
 import { useCart } from "../context/CartContext";
+import Modal from "../components/Modal";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
   const { clearCart } = useCart();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     fetchProducts().then((products) => {
       setProducts(products);
+      setIsLoading(false);
     });
   }, []);
 
@@ -26,26 +30,45 @@ const Home = () => {
       }}
     >
       <HomeContainer>
-        <ProductContainer>
-          {products.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </ProductContainer>
-        <CartContainer>
-          <Cart setIsOrderConfirmed={setIsOrderConfirmed} />
-        </CartContainer>
+        {/* <SubHeader>
+          <Link to="/orders" style={{ textDecoration: "none", color: "black" }}>
+            My Orders
+          </Link>
+        </SubHeader> */}
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            <ProductContainer>
+              {products.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </ProductContainer>
+            <CartContainer>
+              <SubHeader>
+                <Link
+                  to="/orders"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  My Orders
+                </Link>
+              </SubHeader>
+              <Cart setIsOrderConfirmed={setIsOrderConfirmed} />
+            </CartContainer>
 
-        {isOrderConfirmed ? (
-          <OrderModal>
-            <OrderConfirmed
-              onStartNewOrder={() => {
-                setProducts(products);
-                setIsOrderConfirmed(false);
-                clearCart();
-              }}
-            />
-          </OrderModal>
-        ) : null}
+            {isOrderConfirmed ? (
+              <Modal>
+                <OrderConfirmed
+                  onStartNewOrder={() => {
+                    setProducts(products);
+                    setIsOrderConfirmed(false);
+                    clearCart();
+                  }}
+                />
+              </Modal>
+            ) : null}
+          </>
+        )}
       </HomeContainer>
     </main>
   );
@@ -54,6 +77,7 @@ const Home = () => {
 const HomeContainer = styled.main`
   display: flex;
   flex-wrap: wrap;
+  /* flex-direction: column; */
 `;
 
 const ProductContainer = styled.div`
@@ -65,17 +89,18 @@ const ProductContainer = styled.div`
 const CartContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 `;
 
-const OrderModal = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
+export const SubHeader = styled.h3`
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration: underline;
 `;
 
 export default Home;
