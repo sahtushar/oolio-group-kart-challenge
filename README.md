@@ -5,3 +5,4 @@
 3. Start Web-app - `pnpm dev` or `npm run dev`
 4. Goto - http://localhost:5173
 
+Note - Since I was facing a CORS error on the mock API server, I also created a Node.js server (with TWO APIs) in the same project.
